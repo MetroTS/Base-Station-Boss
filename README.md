@@ -17,15 +17,16 @@ Base Station Boss does the same job using your PC's Bluetooth adapter. It runs i
 ## Supported Hardware
 | Base Station | Status | Modes | ID Readout required? |
 | - | - | - | - |
-| Base Station 2.0 | planned | - | - |
-| Base Station 1.0 | ✓ | Wake/Sleep | ✓ — [see below](###finding-your-10-station-id)|
+| Base Station 2.0 | planned | - | x |
+| Base Station 1.0 | ✓ | Wake/Sleep | x
 
 
 ## Initial Setup
 
--
+### Git Clone the Repository
 
-### Where to find V1.0 ID?
+
+
 
 ## SteamVR overview
 
@@ -34,6 +35,7 @@ Base Station Boss does the same job using your PC's Bluetooth adapter. It runs i
 
 
 ## Troubleshooting
+The included CLI Tool can verify that the Processes for Reading Protocol, assembling Commands and Bluetooth work correctly. If so you encounter any problems you can test via running the individual scripts.
 
 ## Credits
 
