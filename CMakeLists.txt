@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.21)      # minimum CMake version
-project(BaseStationBoss LANGUAGES CXX)    # project name, C++
+cmake_minimum_required(VERSION 3.21)
+project(BaseStationBoss LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)                # use C++17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)     # helps IntelliSense find everything
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory(blc)                     # go into blc/ and read its CMakeLists
+add_subdirectory(blc)
+add_subdirectory(cli)
