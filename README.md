@@ -1,8 +1,8 @@
 # Base Station Boss!
-A tiny, invisible SteamVR plugin that turns your Lighthouse base stations on when SteamVR starts and puts them to sleep when it closes — for **any** headset.
+A tiny, invisible SteamVR plugin that turns your Lighthouse base stations on when SteamVR starts and puts them to sleep when it closes for **any** headset.
 
 ## Why?
-SteamVR can power base stations on and off automatically, but it sends those commands through the Bluetooth radio built into Valve and HTC headsets. Headsets without that radio — inside-out headsets used with Lighthouse controllers/trackers (PSVR2, WMR, Quest via Link/Virtual Desktop) or other Lighthouse headsets — never get this feature.
+SteamVR can power base stations on and off automatically, but it sends those commands through the Bluetooth radio built into Valve and HTC headsets. Headsets without that radio - inside-out headsets used with Lighthouse controllers/trackers (PSVR2, WMR, Quest via Link/Virtual Desktop) or other Lighthouse headsets - never get this feature.
 
 Base Station Boss does the same job using your PC's Bluetooth adapter. It runs inside SteamVR as a driver, shows up nowhere as a device, and is configured from the SteamVR settings menu.
 
