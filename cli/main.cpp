@@ -2,6 +2,8 @@
 #include "StationManager.h"
 #include "V1ID.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 int main()
@@ -72,12 +74,12 @@ int main()
     else
         cout << "match CB4BFA: FAIL\n ";
 
-    if (match_base_serial_number(serial_IDs, "HTC BS 123456") == 0x35A36D8C)
+    if (match_base_serial_number(serial_IDs, "HTC BS 123456") == 0)
         cout << "match 123456: OK - this shouldnt have matched\n";
     else
         cout << "match 123456: FAIL - this is to be expected\n";
 
-    if (match_base_serial_number(serial_IDs, "HTC BS AB") == 0x35A36D8C)
+    if (match_base_serial_number(serial_IDs, "HTC BS AB") == 0)
         cout << "match AB: OK - this shouldnt have matched\n";
     else
         cout << "match AB: FAIL - this is to be expected\n";
@@ -98,6 +100,17 @@ int main()
     cout << "loaded " << loaded.size() << " IDs:\n";
     for (auto id : loaded)
         cout << "  " << hex << uppercase << id << dec << "\n";
+
+    cout << "Sending Sleep...\n";
+    int n = manager.SetAll(PowerState::Sleep);
+    cout << "Reached " << n << " of " << found.size() << " stations\n";
+
+    cout << "Waiting 60 s...\n";
+    this_thread::sleep_for(chrono::seconds(60));
+
+    cout << "Sending On...\n";
+    n = manager.SetAll(PowerState::On);
+    cout << "Reached " << n << " of " << found.size() << " stations\n";
 
     return 0;
 }
