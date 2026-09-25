@@ -92,5 +92,10 @@ int main()
     else
     cout << "load missing file: FAIL\n";
 
+    auto loaded = load_base_serial_number("C:/Program Files (x86)/Steam/config/lighthouse/lighthousedb.json");
+    cout << "loaded " << loaded.size() << " IDs:\n";
+    for (auto id : loaded)
+        cout << "  " << hex << uppercase << id << dec << "\n";
+
     return 0;
 }
