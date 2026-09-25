@@ -1,29 +1,31 @@
 #include "Protocol.h"
 #include "StationManager.h"
+#include "V1ID.h"
 #include <iostream>
+using namespace std;
 
 int main()
 {
     // v2 On should give the byte 01
-    if (BuildPayload(true, PowerState::On) == std::vector<std::uint8_t>{0x01})
-        std::cout << "v2 On: OK\n";
+    if (BuildPayload(true, PowerState::On) == vector<uint8_t>{0x01})
+        cout << "v2 On: OK\n";
     else
-        std::cout << "v2 On: FAIL\n";
+        cout << "v2 On: FAIL\n";
 
     // v2 Sleep should give the byte 00
-    if (BuildPayload(true, PowerState::Sleep) == std::vector<std::uint8_t>{0x00})
-        std::cout << "v2 Sleep: OK\n";
+    if (BuildPayload(true, PowerState::Sleep) == vector<uint8_t>{0x00})
+        cout << "v2 Sleep: OK\n";
     else
-        std::cout << "v2 Sleep: FAIL\n";
+        cout << "v2 Sleep: FAIL\n";
 
     // v2 Standby should give the byte 02
-    if (BuildPayload(true, PowerState::Standby) == std::vector<std::uint8_t>{0x02})
-        std::cout << "v2 Standby: OK\n";
+    if (BuildPayload(true, PowerState::Standby) == vector<uint8_t>{0x02})
+        cout << "v2 Standby: OK\n";
     else
-        std::cout << "v2 Standby: FAIL\n";
+        cout << "v2 Standby: FAIL\n";
 
     // v1 On should give the bytes 0x12, 0x00 ... ID
-        std::vector<std::uint8_t> v1payloadOn = {
+        vector<uint8_t> v1payloadOn = {
         0x12, 0x00, 0x00, 0x00,
         0x8c, 0x6D, 0xA3, 0x35,
         0x00, 0x00, 0x00, 0x00,
@@ -32,12 +34,12 @@ int main()
     };
 
     if (BuildPayload(false, PowerState::On, 0x35A36D8C) == v1payloadOn)
-        std::cout << "v1 On: OK\n";
+        cout << "v1 On: OK\n";
     else
-        std::cout << "v1 On: FAIL\n";
+        cout << "v1 On: FAIL\n";
 
     // v1 Standby should give the bytes 0x12, 0x02, 0x00, 0x01 ... ID
-    std::vector<std::uint8_t> v1payloadStandby = {
+    vector<uint8_t> v1payloadStandby = {
         0x12, 0x02, 0x00, 0x01,
         0x8c, 0x6D, 0xA3, 0x35,
         0x00, 0x00, 0x00, 0x00,
@@ -46,15 +48,37 @@ int main()
     };
 
     if (BuildPayload(false, PowerState::Standby, 0x35A36D8C) == v1payloadStandby)
-        std::cout << "v1 Standby: OK\n";
+        cout << "v1 Standby: OK\n";
     else
-        std::cout << "v1 Standby: FAIL\n";
+        cout << "v1 Standby: FAIL\n";
 
     StationManager manager;
     auto found = manager.Scan(5);
-    std::cout << "Found " << found.size() << " base stations:\n";
+    cout << "Found " << found.size() << " base stations:\n";
     for (auto& s : found)
-    std::cout << "  " << s.Name << "  (" << s.Address << ")\n";
+    cout << "  " << s.Name << "  (" << s.Address << ")\n";
+
+    vector<uint32_t> serial_IDs = {0x35A36D8C, 0x2EAC4BFA};
+
+    if (match_base_serial_number(serial_IDs, "HTC BS 4D6D8C") == 0x35A36D8C)
+        cout << "match 4D6D8C: OK\n";
+    else
+        cout << "match 4D6D8C: FAIL\n";
+
+    if (match_base_serial_number(serial_IDs, "HTC BS CB4BFA") == 0x2EAC4BFA)
+        cout << "match CB4BFA: OK\n";
+    else
+        cout << "match CB4BFA: FAIL\n ";
+
+    if (match_base_serial_number(serial_IDs, "HTC BS 123456") == 0x35A36D8C)
+        cout << "match 123456: OK - this shouldnt have matched\n";
+    else
+        cout << "match 123456: FAIL - this is to be expected\n";
+
+    if (match_base_serial_number(serial_IDs, "HTC BS AB") == 0x35A36D8C)
+        cout << "match AB: OK - this shouldnt have matched\n";
+    else
+        cout << "match AB: FAIL - this is to be expected\n";
 
     return 0;
 }
