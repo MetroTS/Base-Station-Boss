@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <simpleble/SimpleBLE.h>
+#include <vector>
 #include "Station.h"
 #include "StationManager.h"
 
@@ -38,3 +38,6 @@ std::vector<Station> StationManager::Scan(int seconds){
     return stations_;
 }
 
+
+    }
+}
