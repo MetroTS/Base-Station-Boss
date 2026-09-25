@@ -58,7 +58,7 @@ int main()
     for (auto& s : found)
     cout << "  " << s.Name << "  (" << s.Address << ")\n";
 
-    vector<uint32_t> serial_IDs = {0x35A36D8C, 0x2EAC4BFA};
+    vector<uint32_t> serial_IDs = {0x2EAC4BFA, 0x35A36D8C};
 
     if (match_base_serial_number(serial_IDs, "HTC BS 4D6D8C") == 0x35A36D8C)
         cout << "match 4D6D8C: OK\n";
@@ -79,6 +79,18 @@ int main()
         cout << "match AB: OK - this shouldnt have matched\n";
     else
         cout << "match AB: FAIL - this is to be expected\n";
+
+    vector<uint32_t> expectedIds = {0x2EAC4BFA, 0x35A36D8C};
+
+    if (load_base_serial_number("C:/Program Files (x86)/Steam/config/lighthouse/lighthousedb.json") == expectedIds)
+    cout << "load real file: OK\n";
+    else
+    cout << "load real file: FAIL\n";
+
+    if (load_base_serial_number("C:/nope.json").empty())
+    cout << "load missing file: OK\n";
+    else
+    cout << "load missing file: FAIL\n";
 
     return 0;
 }
