@@ -1,4 +1,5 @@
 #include "Protocol.h"
+#include "StationManager.h"
 #include <iostream>
 
 int main()
@@ -45,9 +46,15 @@ int main()
     };
 
     if (BuildPayload(false, PowerState::Standby, 0x35A36D8C) == v1payloadStandby)
-        std::cout << "v1 On: OK\n";
+        std::cout << "v1 Standby: OK\n";
     else
-        std::cout << "v1 On: FAIL\n";
-    return 0;
+        std::cout << "v1 Standby: FAIL\n";
 
+    StationManager manager;
+    auto found = manager.Scan(5);
+    std::cout << "Found " << found.size() << " base stations:\n";
+    for (auto& s : found)
+    std::cout << "  " << s.Name << "  (" << s.Address << ")\n";
+
+    return 0;
 }

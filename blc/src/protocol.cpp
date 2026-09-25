@@ -1,5 +1,4 @@
 #include "Protocol.h"
-#include <iostream>
 
 std::vector<std::uint8_t> BuildPayload(bool isV2, PowerState state, std::uint32_t id){
     if (isV2) {

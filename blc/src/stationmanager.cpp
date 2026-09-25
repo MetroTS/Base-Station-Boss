@@ -37,7 +37,3 @@ std::vector<Station> StationManager::Scan(int seconds){
     }
     return stations_;
 }
-
-
-    }
-}
