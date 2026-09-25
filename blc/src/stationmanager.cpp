@@ -3,8 +3,9 @@
 #include <vector>
 #include "Station.h"
 #include "StationManager.h"
+#include "v1id.h"
 
-std::vector<Station> StationManager::Scan(int seconds){
+std::vector<Station> StationManager::Scan(int seconds, const std::vector<uint32_t>& knownIds){
     stations_.clear();
     auto adapters = SimpleBLE::Adapter::get_adapters();
     if (adapters.empty()) {
@@ -32,6 +33,8 @@ std::vector<Station> StationManager::Scan(int seconds){
         s.Name = name;
         s.Address = peripheral.address();
         s.IsV2 = isV2;
+        if (isV1)
+            s.ID = match_base_serial_number(knownIds, name);
 
         stations_.push_back(s);
     }

@@ -52,11 +52,13 @@ int main()
     else
         cout << "v1 Standby: FAIL\n";
 
+    vector<uint32_t> knownIds = load_base_serial_number("C:/Program Files (x86)/Steam/config/lighthouse/lighthousedb.json");
+
     StationManager manager;
-    auto found = manager.Scan(5);
+    auto found = manager.Scan(5, knownIds);
     cout << "Found " << found.size() << " base stations:\n";
     for (auto& s : found)
-    cout << "  " << s.Name << "  (" << s.Address << ")\n";
+        cout << "  " << s.Name << "  ID: " << hex << uppercase << s.ID << dec << "\n";
 
     vector<uint32_t> serial_IDs = {0x2EAC4BFA, 0x35A36D8C};
 
